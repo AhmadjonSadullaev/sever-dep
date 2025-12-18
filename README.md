@@ -18,7 +18,7 @@ sudo apt install certbot python3-certbot-nginx
 sudo certbot --nginx -d studenthunter.org -d www.studenthunter.org
 
 server {
- server_name studenthunter.uz www.studenthunter.uz;
+ server_name link.uz;
  root /var/www/html;
  index index.html;
 
@@ -34,7 +34,7 @@ server {
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 }
 server {
-    if ($host = studenthunter.uz) {
+    if ($host = link.com) {
         return 301 https://$host$request_uri;
     }
 
@@ -42,12 +42,12 @@ server {
         return 301 https://$host$request_uri;
     } 
 
- server_name studenthunter.uz www.studenthunter.uz;
+ server_name link.com;
     return 404;
 }
 
 server {
- server_name api.studenthunter.uz www.api.studenthunter.uz;
+ server_name api.{link.com} link.com;
 
     location / {
         proxy_pass http://localhost:8080;
@@ -70,15 +70,15 @@ server {
 }
 
 server {
-    if ($host = api.studenthunter.uz) {
+    if ($host = api.link.com) {
         return 301 https://$host$request_uri;
     } 
 
-    if ($host = www.api.studenthunter.uz) {
+    if ($host = www.api.link.com) {
         return 301 https://$host$request_uri;
     }
 
-    server_name api.studenthunter.uz www.api.studenthunter.uz;
+    server_name api.link.com www.api.link.com;
     return 404; 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
